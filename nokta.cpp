@@ -15,8 +15,8 @@ nokta::nokta(int girdi)
 	komsu=girdi;
 	isim=sisim;
 	++sisim;
-	pt.x=rand() %400 + 1;
-	pt.y=rand() %400 + 1;
+	pt.x=rand() %1000 + 1;
+	pt.y=rand() %1000 + 1;
 
 }
 

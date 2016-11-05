@@ -134,3 +134,27 @@ int randla(int w)
 {
 	return rand() %w + 1;
 }
+
+void grafla(vector<nokta> komsu, Mat& resim,int w)
+{
+	for(unsigned int say=0;say<komsu.size();++say)
+	{
+		string s;
+		list<char>::iterator p;
+		circle( resim,komsu[say].pt, w/32.0,Scalar( 0,255,0 ),-1, 2 );
+		putText(resim,s+komsu[say].isim,komsu[say].pt, CV_FONT_HERSHEY_SIMPLEX, 0.5,cv::Scalar(0, 0, 255),1,8,false);
+
+		p=komsu[say].komsular.begin();
+		while(p!=komsu[say].komsular.end())
+				{
+				for(unsigned int say1=0;say1<komsu.size();++say1)
+					{
+						if(*p==komsu[say1].isim)
+						{
+							line( resim, komsu[say].pt, komsu[say1].pt, Scalar( rand() %255 + 1,rand() %255 + 1,rand() %255 + 1 ), 1,1 );
+						}
+					}
+				++p;
+				}
+	}
+}
