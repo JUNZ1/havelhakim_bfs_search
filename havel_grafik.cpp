@@ -3,7 +3,7 @@
 // Author      : JUNZI
 // Version     :
 // Copyright   : #Ozgur Yazilim
-// Description : Hello World in C++, Ansi-style
+// Description : Havel Grafik
 //============================================================================
 
 #include <iostream>

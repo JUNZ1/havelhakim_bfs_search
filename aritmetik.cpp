@@ -103,18 +103,26 @@ void cikar(vector<nokta>& allocator, vector<nokta>& toplayan)
 
 void komsulari_yaz(vector<nokta>& komsu)
 {
-
 	list<char>::iterator pkomsu;
 
 	for(unsigned int a=0;a<komsu.size();++a)
 	{
 		pkomsu=komsu[a].komsular.begin();
 		cout<<komsu[a].pt.x<<"  "<<komsu[a].pt.y
-				<<"kordinatli  "<<komsu[a].isim<<"  nin komsulari.."<<endl;
+				<<" kordinatli "<<komsu[a].isim<<"  nin komsulari.."<<endl;
 
 		while(pkomsu!=komsu[a].komsular.end())
 		{
 			cout<<"   "<<*pkomsu<<endl;
+
+			for(unsigned int index=0;index<komsu.size();++index)
+			{
+				if(komsu[index].isim==*pkomsu)
+				{
+					komsu[index].komsular.push_back(komsu[a].isim);
+					break;
+				}
+			}
 			++pkomsu;
 		}
 
