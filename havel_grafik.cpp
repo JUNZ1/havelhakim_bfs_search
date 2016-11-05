@@ -54,7 +54,10 @@ int main() {
 
 	grafla(komsu,resim, w);
 	komsulari_yaz(komsu);
+	imshow( "pencere", resim );
+	waitKey( 0 );
 
+	bfs(komsu);
 
 
 	imshow( "pencere", resim );

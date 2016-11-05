@@ -21,10 +21,12 @@ public:
 	nokta(int);
 	virtual ~nokta();
 	int komsu;
-	static char sisim;
 	char isim;
 	list<char> komsular;
 	cv::Point pt;
+	bool visited=false;
+protected:
+	static char sisim;
 };
 
 

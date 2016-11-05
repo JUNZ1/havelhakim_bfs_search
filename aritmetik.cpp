@@ -141,7 +141,7 @@ void grafla(vector<nokta> komsu, Mat& resim,int w)
 	{
 		string s;
 		list<char>::iterator p;
-		circle( resim,komsu[say].pt, w/32.0,Scalar( 0,255,0 ),-1, 2 );
+		circle( resim,komsu[say].pt, w/32.0,Scalar( rand() %255 + 1,rand() %255 + 1,rand() %255 + 1 ),-1, 2 );
 		putText(resim,s+komsu[say].isim,komsu[say].pt, CV_FONT_HERSHEY_SIMPLEX, 0.5,cv::Scalar(0, 0, 255),1,8,false);
 
 		p=komsu[say].komsular.begin();
@@ -158,3 +158,105 @@ void grafla(vector<nokta> komsu, Mat& resim,int w)
 				}
 	}
 }
+
+void bfs(vector<nokta> allocator)
+{
+	bool bulundu=false;
+	char baslangic, son;
+	list<char> sira;
+	list <char> output;
+	cout<<"Aramaya baslanacak noktanin ismini gir"<<endl;
+	cin>>baslangic;
+	cout<<"Aranacak noktanin ismini gir"<<endl;
+	cin>>son;
+	cout<<baslangic<<"  noktasindan -> "<<son<<"  noktasi aranacak"<<endl;
+
+	output.push_back(baslangic);
+	sira.push_back(baslangic);
+
+
+	for(unsigned int index=0;index<allocator.size();++index)
+	{
+
+		if(allocator[index].isim==sira.front() && bulundu ==false) //outputun ilk elementi
+		{
+			allocator[index].visited=true;
+			list<char>::iterator p;
+			p=allocator[index].komsular.begin();
+			while(p!=allocator[index].komsular.end()&& bulundu ==false)
+			{
+				for(unsigned int index2=0;index2<allocator.size();++index2&& bulundu ==false)
+				{
+					if(allocator[index2].isim==*p && allocator[index2].visited==false)
+					{
+						allocator[index2].visited=true;
+						sira.push_back(*p);
+						output.push_back(*p);
+						sira.pop_front();
+						if(son==*p)
+						{
+						bulundu=true;
+						break;
+						}
+
+					}
+				}
+				++p;
+
+			}
+		}
+
+	}
+	if(bulundu==true)
+	{
+		list<char>::iterator p;
+			p=output.begin();
+			while(p!=output.end())
+			{
+				cout<<*p<<endl;
+				++p;
+			}
+	}
+	else
+	{
+		cout<<"bulunamadi"<<endl;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
