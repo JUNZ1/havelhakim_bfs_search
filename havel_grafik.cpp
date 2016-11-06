@@ -24,6 +24,7 @@ int main() {
 	Mat resim = Mat::zeros( w, w, CV_8UC3 );
 
 	vector<nokta> listem;
+	vector<nokta> listem2;
 	vector<nokta> komsu;
 	srand(time(NULL));
 	int input;
@@ -42,6 +43,7 @@ int main() {
 
 	int stop=0;
 	yaz(listem);
+	listem2=listem;
 	while(stop==0)
 	{
 		sirala(listem);
@@ -53,7 +55,8 @@ int main() {
 
 
 	grafla(komsu,resim, w);
-	komsulari_yaz(komsu);
+	komsulari_yaz(komsu,listem2);
+
 	imshow( "pencere", resim );
 	waitKey( 0 );
 

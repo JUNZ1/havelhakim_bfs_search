@@ -101,7 +101,7 @@ void cikar(vector<nokta>& allocator, vector<nokta>& toplayan)
 	allocator.erase(p);
 }
 
-void komsulari_yaz(vector<nokta>& komsu)
+void komsulari_yaz(vector<nokta>& komsu,vector<nokta> liste)
 {
 	list<char>::iterator pkomsu;
 
@@ -117,10 +117,21 @@ void komsulari_yaz(vector<nokta>& komsu)
 
 			for(unsigned int index=0;index<komsu.size();++index)
 			{
+				unsigned int index2;
 				if(komsu[index].isim==*pkomsu)
 				{
+					for(index2=0;index2<liste.size();++index2)
+					{
+						if(liste[index2].isim==komsu[index].isim)
+							break;
+					}
+
+					if(liste[index2].komsu!=komsu[index].komsular.size())
+					{
 					komsu[index].komsular.push_back(komsu[a].isim);
+
 					break;
+					}
 				}
 			}
 			++pkomsu;
@@ -154,7 +165,7 @@ void grafla(vector<nokta> komsu, Mat& resim,int w)
 							line( resim, komsu[say].pt, komsu[say1].pt, Scalar( rand() %255 + 1,rand() %255 + 1,rand() %255 + 1 ), 1,1 );
 						}
 					}
-				++p;
+					++p;
 				}
 	}
 }
@@ -164,7 +175,7 @@ void bfs(vector<nokta> allocator)
 	bool bulundu=false;
 	char baslangic, son;
 	list<char> sira;
-	list <char> output;
+	list<char> output;
 	cout<<"Aramaya baslanacak noktanin ismini gir"<<endl;
 	cin>>baslangic;
 	cout<<"Aranacak noktanin ismini gir"<<endl;
@@ -173,55 +184,57 @@ void bfs(vector<nokta> allocator)
 
 	output.push_back(baslangic);
 	sira.push_back(baslangic);
+	unsigned int index;
 
-
-	for(unsigned int index=0;index<allocator.size();++index)
+	while(bulundu==false)
 	{
 
-		if(allocator[index].isim==sira.front() && bulundu ==false) //outputun ilk elementi
-		{
-			allocator[index].visited=true;
-			list<char>::iterator p;
-			p=allocator[index].komsular.begin();
-			while(p!=allocator[index].komsular.end()&& bulundu ==false)
+		for(index=0;index<allocator.size();++index)
 			{
-				for(unsigned int index2=0;index2<allocator.size();++index2&& bulundu ==false)
+			if(allocator[index].isim==sira.front() && bulundu ==false) //outputun ilk elementi
 				{
-					if(allocator[index2].isim==*p && allocator[index2].visited==false)
-					{
-						allocator[index2].visited=true;
-						sira.push_back(*p);
-						output.push_back(*p);
-						sira.pop_front();
-						if(son==*p)
-						{
-						bulundu=true;
-						break;
-						}
-
-					}
+					//cout<<allocator[index].isim<<"    "<<sira.front()<<endl; //siranin ilk elementi bulunuyor allocator[index]
+					allocator[index].visited=true;
+					break;
 				}
-				++p;
-
 			}
-		}
+		if(allocator[index].isim==son)
+			bulundu=true;
 
-	}
-	if(bulundu==true)
-	{
-		list<char>::iterator p;
-			p=output.begin();
-			while(p!=output.end())
+		list<char>::iterator pkomsu;
+		pkomsu=allocator[index].komsular.begin();
+
+		cout<<allocator[index].isim<<"  komsulari"<<endl;
+
+		while(pkomsu!=allocator[index].komsular.end() && bulundu ==false) //uzerinde bulunan indexin komsularini siraya atiyoruz
 			{
-				cout<<*p<<endl;
-				++p;
+				for(unsigned int index2=0;index2<allocator.size();++index2)
+					{
+						if(allocator[index2].isim==*pkomsu && allocator[index2].visited==false)
+							{
+								if(allocator[index2].visited==false)
+								{
+									sira.push_back(allocator[index2].isim);
+									allocator[index2].visited=true;
+								}
+							}
+					}
+				cout<<"   "<<*pkomsu<<endl;
+				++pkomsu;
 			}
-	}
-	else
-	{
-		cout<<"bulunamadi"<<endl;
+		output.push_back(allocator[index].isim);
+		sira.pop_front();
 	}
 
+	output.pop_front();
+	cout<<"Bulundu"<<endl;
+	list<char>::iterator p;
+	p=output.begin();
+	while(p!=output.end())
+	{
+		cout<<*p<<" ";
+		++p;
+	}
 }
 
 

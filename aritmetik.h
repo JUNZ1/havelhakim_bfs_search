@@ -29,7 +29,7 @@ void sirala(vector<nokta>&);
 void yaz(vector<nokta>&);
 int dagit(vector<nokta>&);
 void cikar(vector<nokta>&,vector<nokta>&);
-void komsulari_yaz(vector<nokta>&);
+void komsulari_yaz(vector<nokta>&,const vector<nokta>);
 int randla(int);
 void grafla(vector<nokta>,Mat &,int);
 void bfs(const vector<nokta>);
