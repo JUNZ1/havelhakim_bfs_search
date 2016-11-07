@@ -59,12 +59,10 @@ int main() {
 
 	imshow( "pencere", resim );
 	waitKey( 0 );
+	bfs(komsu,w);
 
-	bfs(komsu);
 
 
-	imshow( "pencere", resim );
-	waitKey( 0 );
 	cout<<"EOP";
 	return(0);
 

@@ -32,7 +32,7 @@ void cikar(vector<nokta>&,vector<nokta>&);
 void komsulari_yaz(vector<nokta>&,const vector<nokta>);
 int randla(int);
 void grafla(vector<nokta>,Mat &,int);
-void bfs(const vector<nokta>);
+void bfs(const vector<nokta>,int);
 
 #endif /* ARITMETIK_H_ */
 

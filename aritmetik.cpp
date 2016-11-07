@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
+#include <unistd.h>
 aritmetik::aritmetik()
 {
 	// TODO Auto-generated constructor stub
@@ -170,7 +171,7 @@ void grafla(vector<nokta> komsu, Mat& resim,int w)
 	}
 }
 
-void bfs(vector<nokta> allocator)
+void bfs(vector<nokta> allocator,int w)
 {
 	bool bulundu=false;
 	char baslangic, son;
@@ -204,7 +205,7 @@ void bfs(vector<nokta> allocator)
 		list<char>::iterator pkomsu;
 		pkomsu=allocator[index].komsular.begin();
 
-		cout<<allocator[index].isim<<"  komsulari"<<endl;
+		//cout<<allocator[index].isim<<"  komsulari"<<endl;
 
 		while(pkomsu!=allocator[index].komsular.end() && bulundu ==false) //uzerinde bulunan indexin komsularini siraya atiyoruz
 			{
@@ -219,7 +220,7 @@ void bfs(vector<nokta> allocator)
 								}
 							}
 					}
-				cout<<"   "<<*pkomsu<<endl;
+				//cout<<"   "<<*pkomsu<<endl;
 				++pkomsu;
 			}
 		output.push_back(allocator[index].isim);
@@ -235,6 +236,31 @@ void bfs(vector<nokta> allocator)
 		cout<<*p<<" ";
 		++p;
 	}
+	cout<<endl;
+
+	//ciz
+	Mat resim = Mat::zeros( w, w, CV_8UC3 );
+	p=output.begin();
+	imshow( "BFS", resim );
+	while(p!=output.end())
+		{
+		for(unsigned int index=0;index<allocator.size();++index)
+				{
+					if(allocator[index].isim==*p)
+					{
+						string s;
+						circle(resim,allocator[index].pt, w/32.0,Scalar( rand() %255 + 1,rand() %255 + 1,rand() %255 + 1 ),-1, 2 );
+						putText(resim,s+allocator[index].isim,allocator[index].pt, CV_FONT_HERSHEY_SIMPLEX, 0.5,cv::Scalar(0, 0, 255),1,8,false);
+						waitKey( 500 );
+						//usleep();
+						imshow( "BFS", resim );
+					}
+				}
+			++p;
+		}
+
+	waitKey( 0 );
+
 }
 
 
