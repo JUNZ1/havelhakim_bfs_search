@@ -263,6 +263,105 @@ void bfs(vector<nokta> allocator,int w)
 
 }
 
+void dfs(vector<nokta>allocator,int w)
+{
+	bool bulundu=false;
+	char baslangic, son;
+	list<char> sira;
+	list<char> output;
+	cout<<"Aramaya baslanacak noktanin ismini gir"<<endl;
+	cin>>baslangic;
+	cout<<"Aranacak noktanin ismini gir"<<endl;
+	cin>>son;
+	cout<<baslangic<<"  noktasindan -> "<<son<<"  noktasi aranacak"<<endl;
+
+	output.push_back(baslangic);
+	sira.push_back(baslangic);
+	unsigned int index;
+	bool tur_ok=false;
+	while(bulundu==false)
+	{
+		tur_ok=false;
+		for(index=0;index<allocator.size();++index)
+			{
+			if(allocator[index].isim==sira.back() && bulundu ==false) //outputun ilk elementi
+				{
+					//cout<<allocator[index].isim<<"    "<<sira.front()<<endl; //siranin ilk elementi bulunuyor allocator[index]
+					allocator[index].visited=true;
+					sira.pop_back();
+					break;
+				}
+			}
+		if(allocator[index].isim==son)
+			bulundu=true;
+
+		list<char>::iterator pkomsu;
+		pkomsu=allocator[index].komsular.begin();
+
+		//cout<<allocator[index].isim<<"  komsulari"<<endl;
+
+		while(pkomsu!=allocator[index].komsular.end() && bulundu ==false) //uzerinde bulunan indexin komsularini siraya atiyoruz
+			{
+				for(unsigned int index2=0;index2<allocator.size();++index2)
+					{
+						if(allocator[index2].isim==*pkomsu && allocator[index2].visited==false)
+							{
+								if(allocator[index2].visited==false)
+								{
+									sira.push_back(allocator[index2].isim);
+									allocator[index2].visited=true;
+									output.push_back(allocator[index].isim);
+									tur_ok=true;
+									break;
+
+								}
+
+							}
+
+					}
+				//cout<<"   "<<*pkomsu<<endl;
+				++pkomsu;
+				if(tur_ok)
+					break;
+			}
+
+
+	}
+
+	output.pop_front();
+	cout<<"Bulundu"<<endl;
+	list<char>::iterator p;
+	p=output.begin();
+	while(p!=output.end())
+	{
+		cout<<*p<<" ";
+		++p;
+	}
+	cout<<endl;
+
+	//ciz
+	Mat resim = Mat::zeros( w, w, CV_8UC3 );
+	p=output.begin();
+	imshow( "BFS", resim );
+	while(p!=output.end())
+		{
+		for(unsigned int index=0;index<allocator.size();++index)
+				{
+					if(allocator[index].isim==*p)
+					{
+						string s;
+						circle(resim,allocator[index].pt, w/32.0,Scalar( rand() %255 + 1,rand() %255 + 1,rand() %255 + 1 ),-1, 2 );
+						putText(resim,s+allocator[index].isim,allocator[index].pt, CV_FONT_HERSHEY_SIMPLEX, 0.5,cv::Scalar(0, 0, 255),1,8,false);
+						waitKey( 500 );
+						//usleep();
+						imshow( "BFS", resim );
+					}
+				}
+			++p;
+		}
+
+	waitKey( 0 );
+}
 
 
 

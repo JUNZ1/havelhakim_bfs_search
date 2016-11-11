@@ -59,7 +59,9 @@ int main() {
 
 	imshow( "pencere", resim );
 	waitKey( 0 );
-	bfs(komsu,w);
+	//bfs(komsu,w);
+
+	dfs(komsu,w);
 
 
 
