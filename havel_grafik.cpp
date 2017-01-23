@@ -59,8 +59,10 @@ int main() {
 
 	imshow( "pencere", resim );
 	waitKey( 0 );
-	//bfs(komsu,w);
 
+	cout<<"BFS ALGORITMASI"<<endl;
+	bfs(komsu,w);
+	cout<<"DFS ALGORITMASI"<<endl;
 	dfs(komsu,w);
 
 
